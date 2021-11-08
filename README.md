@@ -1,4 +1,4 @@
-# WEVA Textiles Website Clone using ReactJS
+# WEVA Textile Website Clone using ReactJS
 
 This project is a clone of WEVA Textile Website. Recreated using ReactJS.
 
