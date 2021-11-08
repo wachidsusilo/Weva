@@ -1,0 +1,98 @@
+@import '../../assets/colors/color';
+
+.search-bar {
+    width: 550px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 0 1px $borderColor;
+    color: $primaryText;
+    position: relative;
+
+    &-categories {
+        width: 150px;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+        box-shadow: 1px 0 0 0 $borderColor;
+        cursor: pointer;
+
+        &-label {
+            font-size: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.15s ease;
+        }
+    }
+
+    &-input {
+        width: 343px;
+        height: 100%;
+        padding: 0 16px;
+        outline: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: 1px 0 0 0 $borderColor;
+    }
+
+    &-button {
+        width: 55px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &-icon {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    &-menu {
+        position: absolute;
+        box-sizing: border-box;
+        width: 150px;
+        top: 41px;
+        box-shadow: 0 0 0 1px $borderColor;
+        overflow: hidden;
+        transition: height 0.15s ease;
+        background-color: $backgroundColor;
+        z-index: 2;
+
+        &-item {
+            width: 100%;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:first-child {
+                margin-top: 8px;
+            }
+
+            &:last-child {
+                margin-bottom: 8px;
+            }
+
+            &:hover {
+                background-color: $primaryColor;
+            }
+        }
+
+        &-hide {
+            box-shadow: none;
+        }
+
+    }
+}

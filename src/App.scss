@@ -1,0 +1,49 @@
+@import "./assets/fonts/scss/fonts";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    height: 100vh;
+}
+
+.app {
+    font-family: Roboto;
+}
+
+.select {
+    -webkit-touch-callout: default;
+    -webkit-user-select: default;
+    -khtml-user-select: default;
+    -moz-user-select: default;
+    -ms-user-select: default;
+    user-select: default;
+}
+
+.hide {
+    display: none !important;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}

@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss'
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import Home from './pages/home/Home'
+import Catalog from './pages/catalog/Catalog'
+import Combed from './pages/combed/Combed'
+import Price from './pages/price/Price'
+import Shop from './pages/shop/Shop'
+import Blog from './pages/blog/Blog'
+import About from './pages/about/About'
+import Warehouse from './pages/warehouse/Warehouse'
+import Product from './pages/product/Product'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <Switch>
+                <Route path='/' exact component={Home} />
+                <Route path='/about' exact component={About} />
+                <Route path='/blog' exact component={Blog} />
+                <Route path='/catalog'exact component={Catalog} />
+                <Route path='/combed' exact component={Combed} />
+                <Route path='/price' exact component={Price} />
+                <Route path='/product' component={Product} />
+                <Route path='/shop' exact component={Shop} />
+                <Route path='/warehouse' exact component={Warehouse} />
+                <Redirect to='/' />
+            </Switch>
+        </Router>
+    )
 }
 
-export default App;
+export default App
