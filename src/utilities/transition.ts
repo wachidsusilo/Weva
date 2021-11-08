@@ -34,10 +34,10 @@ export const setTransition = (easing: Easing, ...element: Array<HTMLElement>) =>
 export const setHalfTransition = (easing: Easing, ...element: Array<HTMLElement>) => {
     switch (easing) {
         case 'in':
-            element.forEach(e => e.style.transition = 'all 0.25s ease-in')
+            element.forEach(e => e.style.transition = 'all 0.35s ease-in')
             break
         case 'out':
-            element.forEach(e => e.style.transition = 'all 0.25s ease-out')
+            element.forEach(e => e.style.transition = 'all 0.35s ease-out')
             break
     }
 }
