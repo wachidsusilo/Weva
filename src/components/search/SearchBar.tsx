@@ -6,11 +6,12 @@ import { useBinder } from '../../utilities/binder'
 import { FIELD_BINDER } from '../../constants/constant'
 
 interface SearchBarProps {
+    className?: string
     searchCallback?: (query: string) => void,
     menuItems: Array<string>
 }
 
-function SearchBar({ searchCallback, menuItems }: SearchBarProps) {
+function SearchBar({ className, searchCallback, menuItems }: SearchBarProps) {
     const [selectedItem, setSelectedItem] = useState<string>(menuItems[0])
     const [showMenu, setShowMenu] = useState<boolean>(false)
     const categoriesRef: LegacyRef<HTMLDivElement> = useRef(null)
@@ -56,7 +57,7 @@ function SearchBar({ searchCallback, menuItems }: SearchBarProps) {
     }, [categoriesBinder, searchCallback])
 
     return (
-        <div className='search-bar'>
+        <div className={`search-bar ${className ? className : ''}`}>
             <div ref={categoriesRef} className='search-bar-categories' tabIndex={0} >
                 <div className='search-bar-categories-label'>{selectedItem}</div>
                 <img className='search-bar-categories-icon' alt='' src={icChevron} style={{ transform: showMenu ? 'rotate(180deg)' : 'rotate(0deg)' }} />

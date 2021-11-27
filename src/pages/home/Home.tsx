@@ -80,6 +80,12 @@ function Home() {
         <div ref={bodyRef} className="home">
             <Header searchCallback={searchCallback} />
             <SliderView images={images} contents={contents} contentLinker={contentLinker} />
+            <div className='home-slider-bottom'>
+                <div className='home-slider-bottom-container'>
+                    <div className='home-slider-bottom-container-content'>{'Supplier Kain Jaket, Parasut, Kaos Katun, Dryfit Termurah & Terlengkap Di Surabaya'}</div>
+                    <div className='home-slider-bottom-container-button'>Read More</div>
+                </div>
+            </div>
             <div style={{ height: '60px' }} />
         </div>
     )

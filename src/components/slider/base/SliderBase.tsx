@@ -2,6 +2,7 @@ import './SliderBase.scss'
 import { ComponentType, LegacyRef, MutableRefObject, useEffect, useRef } from 'react';
 import { clearBackgroundColor, clearTransition, setBackgroundColor, setHeight, setPosition, setTransition } from '../../../utilities/transition';
 import SliderComponent from '../component/SliderComponent';
+import { Log } from '../../../utilities/log';
 
 interface SliderBaseProps {
     sliderRef?: MutableRefObject<{
@@ -34,6 +35,7 @@ function SliderBase({ sliderRef, images = [], contents, contentLinker = [] }: Sl
     const innerOverlayRef: LegacyRef<HTMLDivElement> = useRef(null)
     const innerImageRef: LegacyRef<HTMLImageElement> = useRef(null)
     const currentIndexRef: MutableRefObject<number> = useRef(0)
+    const animatingRef: MutableRefObject<boolean> = useRef(false)
     const animatorRef: MutableRefObject<{
         play: (index: number) => void
     }> = useRef({ play: () => { } })
@@ -46,11 +48,16 @@ function SliderBase({ sliderRef, images = [], contents, contentLinker = [] }: Sl
         const overlay = overlayRef.current
         const innerOverlay = innerOverlayRef.current
         const innerImage = innerImageRef.current
-        let animating = false
+
+        Log('slider-base:', 'instantiate-view')
 
         if (base && imageCurrent && imageAfter && container && overlay && innerOverlay && innerImage && sliderRef) {
 
+            Log('slider-base:', 'instantiate-animation')
+
             const animateImage = (idxAfter: number) => {
+                Log('slider-animation:', 'phase 1')
+    
                 //Set container position to top then animate the height from 0 to 100%
                 setPosition('top', container)
                 setHeight('0', container)
@@ -71,12 +78,14 @@ function SliderBase({ sliderRef, images = [], contents, contentLinker = [] }: Sl
 
                 //Assign callback to overlay element, so we know when to start next animation
                 overlay.ontransitionend = () => {
+                    Log('slider-animation:', 'phase 2')
 
                     //Clear callback from the overlay element
                     overlay.ontransitionend = null
 
                     //Assign callback to imageAfter element, so we know when to start next animation
                     imageAfter.ontransitionend = () => {
+                        Log('slider-animation:', 'phase 3')
 
                         //Clear callback from the imageAfter element
                         imageAfter.ontransitionend = null
@@ -92,7 +101,7 @@ function SliderBase({ sliderRef, images = [], contents, contentLinker = [] }: Sl
 
                         //Set current index according to the chosen image
                         currentIndexRef.current = idxAfter
-                        animating = false
+                        animatingRef.current = false
                     }
 
                     //When overlay transition end, set container position to bottom
@@ -108,13 +117,16 @@ function SliderBase({ sliderRef, images = [], contents, contentLinker = [] }: Sl
                     clearBackgroundColor(overlay)
                 }
 
+                Log('slider-overlay:', overlay.style.backgroundColor)
                 setBackgroundColor('#00000051', overlay, innerOverlay)
+                Log('slider-overlay:', overlay.style.backgroundColor)
             }
 
             sliderRef.current = {
                 next: () => {
-                    if (!animating && images.length > 0) {
-                        animating = true
+                    Log('slider:', animatingRef.current? 'animating' : 'idle', currentIndexRef.current)
+                    if (!animatingRef.current && images.length > 0) {
+                        animatingRef.current = true
                         const idxAfter = ((currentIndexRef.current + 1) < images.length) ? currentIndexRef.current + 1 : 0
                         imageAfter.src = images[idxAfter]
                         innerImage.src = images[idxAfter]
@@ -124,8 +136,8 @@ function SliderBase({ sliderRef, images = [], contents, contentLinker = [] }: Sl
                     }
                 },
                 prev: () => {
-                    if (!animating && images.length > 0) {
-                        animating = true
+                    if (!animatingRef.current && images.length > 0) {
+                        animatingRef.current = true
                         const idxAfter = ((currentIndexRef.current - 1) < 0) ? images.length - 1 : currentIndexRef.current - 1
                         imageAfter.src = images[idxAfter]
                         innerImage.src = images[idxAfter]
@@ -136,12 +148,18 @@ function SliderBase({ sliderRef, images = [], contents, contentLinker = [] }: Sl
                 }
             }
 
-            animating = true
-            animateImage(0)
-            animatorRef.current.play(0)
-            const linker = contentLinker.find((value) => value.backgroundIndex === 0)
-            animatorRef.current.play(linker ? linker.foregroundIndex : -1)
+            setTimeout(() => {
+                animatingRef.current = true
+                animateImage(0)
+                const linker = contentLinker.find((value) => value.backgroundIndex === 0)
+                animatorRef.current.play(linker ? linker.foregroundIndex : -1)
+                Log('slider-linker:', linker ? linker.foregroundIndex : -1)
+            }, 300)
 
+        }
+
+        return () => {
+            animatingRef.current = false
         }
 
     }, [sliderRef, images, contentLinker])

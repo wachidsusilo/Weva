@@ -22,7 +22,7 @@ interface SliderViewProps {
 }
 
 function SliderView({ images, contents, contentLinker }: SliderViewProps) {
-    const slideShowRef: MutableRefObject<boolean> = useRef(false)
+    const slideShowRef: MutableRefObject<boolean> = useRef(true)
     const intervalRef: MutableRefObject<NodeJS.Timeout | null> = useRef(null)
     const sliderRef: MutableRefObject<{
         next: () => void,
@@ -33,6 +33,12 @@ function SliderView({ images, contents, contentLinker }: SliderViewProps) {
         if(slideShowRef.current) intervalRef.current = setInterval(() => {
             sliderRef.current.next()
         }, 10000)
+
+        return () => {
+            if(intervalRef.current) clearInterval(intervalRef.current)
+            intervalRef.current = null
+        }
+
     }, [])
 
     return (

@@ -38,32 +38,31 @@ function NavigationTop({ navRef, className, mode = 'static', infoItems, shopItem
 
         if(home !== null) {
             home.onclick = () => {
-                history.push('/')
+                history.replace('/')
             }
         }
 
         if(shop !== null) {
             shop.onclick = () => {
-                console.log('shopp')
-                history.push('/shop')
+                history.replace('/shop')
             }
         }
 
         if(combed !== null) {
             combed.onclick = () => {
-                history.push('/combed')
+                history.replace('/combed')
             }
         }
 
         if(catalog !== null) {
             catalog.onclick = () => {
-                history.push('/catalog')
+                history.replace('/catalog')
             }
         }
 
         if(price !== null) {
             price.onclick = () => {
-                history.push('/price')
+                history.replace('/price')
             }
         }
 

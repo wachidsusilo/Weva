@@ -21,7 +21,7 @@ interface SliderComponentProps {
 
 function SliderComponent({ backgroundColor = 'transparent', animatorRef, contents = [] }: SliderComponentProps) {
     const [index, setIndex] = useState<number>(0)
-    const indexRef: MutableRefObject<number> = useRef(0)
+    const indexRef: MutableRefObject<number> = useRef(-1)
     const displayRef: MutableRefObject<boolean> = useRef(false)
     const callbackRef: MutableRefObject<{
         show: () => void,
